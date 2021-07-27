@@ -4,9 +4,12 @@
 \name{tsharrk}
 \alias{tsharrk}
 \alias{tsharrk-package}
-\title{...}
+\title{Tools to Make Analyses Using 'tshark' Easier}
 \description{
-A good description goes here otherwise CRAN checks fail.
+The 'tshark' (\url{https://www.wireshark.org/docs/man-pages/tshark.html})
+command line utility comes with Wireshark and is a is useful when performing
+analyses on packet captures (PCAPs). Tools are provided to make it a bit easier
+to work with 'tshark' to perform analyses with R.
 }
 \seealso{
 Useful links:
