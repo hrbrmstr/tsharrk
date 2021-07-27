@@ -23,7 +23,9 @@ Depends:
 Imports: 
     utils,
     arrow,
-    ndjson,
-    tools
+    tools,
+    stringi,
+    RcppSimdJson,
+    magrittr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1

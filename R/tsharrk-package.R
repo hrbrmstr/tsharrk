@@ -10,7 +10,8 @@
 #' @keywords internal
 #' @author Bob Rudis (bob@@rud.is)
 #' @import arrow
-#' @import ndjson
+#' @import RcppSimdJson
+#' @import stringi
 #' @importFrom utils browseURL help read.csv tail
 #' @importFrom tools file_path_sans_ext file_ext
 "_PACKAGE"

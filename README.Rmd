@@ -57,6 +57,17 @@ as_tibble(
 )
 ```
 
+```{r ex-03}
+tf <- tempfile()
+pcap_to_json(system.file("pcap", "http.pcap", package = "tsharrk"), json = tf)
+
+http_cap <- ts_read_json(tf)
+
+http_cap
+
+unlink(tf)
+```
+
 ## Code of Conduct
 
 Please note that this project is released with a Contributor Code of Conduct. 

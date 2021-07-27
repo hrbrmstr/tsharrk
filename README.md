@@ -33,6 +33,8 @@ The following functions are implemented:
 -   `find_tshark`: Find the tshark binary
 -   `get_tshark`: Get tshark
 -   `packet_summary`: Extract packet summary table (if any) from a PCAP
+-   `pcap_to_json`: Convert an entire PCAP file to JSON
+-   `ts_read_json`: Read in a JSON file created with pcap_to_json()
 -   `tshark_exec`: Call the tshark binary with optional custom
     environment variables and options
 -   `tshark_hosts`: Extract hostname/IP table (if any) from a PCAP
@@ -64,10 +66,10 @@ packageVersion("tsharrk")
 
 | Lang | # Files |  (%) | LoC |  (%) | Blank lines |  (%) | # Lines |  (%) |
 |:-----|--------:|-----:|----:|-----:|------------:|-----:|--------:|-----:|
-| R    |       7 | 0.35 | 108 | 0.36 |          33 | 0.29 |      65 | 0.33 |
-| YAML |       2 | 0.10 |  27 | 0.09 |           6 | 0.05 |       2 | 0.01 |
-| Rmd  |       1 | 0.05 |  13 | 0.04 |          18 | 0.16 |      32 | 0.16 |
-| SUM  |      10 | 0.50 | 148 | 0.50 |          57 | 0.50 |      99 | 0.50 |
+| R    |      10 | 0.38 | 172 | 0.40 |          56 | 0.33 |     102 | 0.37 |
+| YAML |       2 | 0.08 |  27 | 0.06 |           6 | 0.04 |       2 | 0.01 |
+| Rmd  |       1 | 0.04 |  18 | 0.04 |          22 | 0.13 |      34 | 0.12 |
+| SUM  |      13 | 0.50 | 217 | 0.50 |          84 | 0.50 |     138 | 0.50 |
 
 clock Package Metrics for tsharrk
 
@@ -98,6 +100,63 @@ as_tibble(
 ##  9          9 2.01  145.254.160… 65.208.228.… TCP       54 "3372 → 80 [ACK] Seq=480 Ack=2761 Win=9660 Len=0"            
 ## 10         10 2.44  65.208.228.… 145.254.160… TCP     1434 "80 → 3372 [ACK] Seq=2761 Ack=480 Win=6432 Len=1380 [TCP seg…
 ## # … with 33 more rows
+```
+
+``` r
+tf <- tempfile()
+pcap_to_json(system.file("pcap", "http.pcap", package = "tsharrk"), json = tf)
+## /opt/homebrew/bin/tshark -T json -r /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/library/tsharrk/pcap/http.pcap
+
+http_cap <- ts_read_json(tf)
+
+http_cap
+## Capture: packets-2004-05-13
+## ───────────────────────────
+##  1. frame ── eth ── ip ── tcp
+##  2. frame ── eth ── ip ── tcp
+##  3. frame ── eth ── ip ── tcp
+##  4. frame ── eth ── ip ── tcp ── http
+##  5. frame ── eth ── ip ── tcp
+##  6. frame ── eth ── ip ── tcp
+##  7. frame ── eth ── ip ── tcp
+##  8. frame ── eth ── ip ── tcp
+##  9. frame ── eth ── ip ── tcp
+## 10. frame ── eth ── ip ── tcp
+## 11. frame ── eth ── ip ── tcp
+## 12. frame ── eth ── ip ── tcp
+## 13. frame ── eth ── ip ── udp ── dns
+## 14. frame ── eth ── ip ── tcp
+## 15. frame ── eth ── ip ── tcp
+## 16. frame ── eth ── ip ── tcp
+## 17. frame ── eth ── ip ── udp ── dns
+## 18. frame ── eth ── ip ── tcp ── http
+## 19. frame ── eth ── ip ── tcp
+## 20. frame ── eth ── ip ── tcp
+## 21. frame ── eth ── ip ── tcp
+## 22. frame ── eth ── ip ── tcp
+## 23. frame ── eth ── ip ── tcp
+## 24. frame ── eth ── ip ── tcp
+## 25. frame ── eth ── ip ── tcp
+## 26. frame ── eth ── ip ── tcp
+## 27. frame ── eth ── ip ── tcp ── tcp.segments ── http ── data-text-lines
+## 28. frame ── eth ── ip ── tcp
+## 29. frame ── eth ── ip ── tcp
+## 30. frame ── eth ── ip ── tcp
+## 31. frame ── eth ── ip ── tcp
+## 32. frame ── eth ── ip ── tcp
+## 33. frame ── eth ── ip ── tcp
+## 34. frame ── eth ── ip ── tcp
+## 35. frame ── eth ── ip ── tcp
+## 36. frame ── eth ── ip ── tcp
+## 37. frame ── eth ── ip ── tcp
+## 38. frame ── eth ── ip ── tcp ── tcp.segments ── http ── xml
+## 39. frame ── eth ── ip ── tcp
+## 40. frame ── eth ── ip ── tcp
+## 41. frame ── eth ── ip ── tcp
+## 42. frame ── eth ── ip ── tcp
+## 43. frame ── eth ── ip ── tcp
+
+unlink(tf)
 ```
 
 ## Code of Conduct
