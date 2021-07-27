@@ -45,6 +45,18 @@ packageVersion("tsharrk")
 cloc::cloc_pkg_md()
 ```
 
+```{r ex-01}
+tshark_hosts(system.file("pcap", "http.pcap", package = "tsharrk"))
+```
+
+```{r ex-02}
+library(tibble)
+
+as_tibble(
+  packet_summary(system.file("pcap", "http.pcap", package = "tsharrk"))
+)
+```
+
 ## Code of Conduct
 
 Please note that this project is released with a Contributor Code of Conduct. 

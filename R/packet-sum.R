@@ -4,7 +4,10 @@
 #' @return data frame
 #' @export
 #' @examples
-#' packet_summary(system.file("pcap", "http.pcap", package = "tsharrk"))
+#' tryCatch(
+#'   packet_summary(system.file("pcap", "http.pcap", package = "tsharrk")),
+#'   error = function(e) message("No tshark")
+#' )
 packet_summary <- function(pcap) {
 
   pcap <- path.expand(pcap[1])

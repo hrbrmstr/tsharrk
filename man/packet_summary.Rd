@@ -16,5 +16,8 @@ data frame
 Extract packet summary table (if any) from a PCAP
 }
 \examples{
-packet_summary(system.file("pcap", "http.pcap", package = "tsharrk"))
+tryCatch(
+  packet_summary(system.file("pcap", "http.pcap", package = "tsharrk")),
+  error = function(e) message("No tshark")
+)
 }

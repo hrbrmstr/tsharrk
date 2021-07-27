@@ -16,5 +16,8 @@ data frame
 Extract hostname/IP table (if any) from a PCAP
 }
 \examples{
-tshark_hosts(system.file("pcap", "http.pcap", package = "tsharrk"))
+tryCatch(
+  tshark_hosts(system.file("pcap", "http.pcap", package = "tsharrk")),
+  error = function(e) message("No tshark")
+)
 }
